@@ -1,0 +1,44 @@
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+
+
+  <title>ITS100:Management_Login</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'component/css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="{% static 'component/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <link rel='stylesheet' href="{% static 'component/css/fullcalendar.css' %}">
+  <script src="https://apis.google.com/js/api:client.js"></script>
+   
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<body>
+     
+    <nav>
+        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <div class="nav-wrapper purple darken-1">
+            <a href="/landing" class="brand-logo">ITS100:Management</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/announce">Announcement</a></li>
+            <li><a href="/student">Students</a></li>
+            <li><a href="#!">Classwork</a></li>
+            <li><a href="#!">Plagiarism</a></li>
+            <li><a href="/logout">Sign out</a></li>
+            </ul>
+        </div>
+        
+        <ul id="slide-out" class="sidenav">
+        <li><a href="/announce">Announcement</a></li>
+        <li><a href="/student">Students</a></li>
+        <li><a href="#!">Classwork</a></li>
+        <li><a href="#!">Plagiarism</a></li>
+        <li><a href="/logout" >Sign out</a></li>
+        </ul>
+    </nav>
+ 

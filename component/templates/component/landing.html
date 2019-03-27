@@ -1,0 +1,92 @@
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+
+
+  <title>ITS100:Management_Login</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'component/css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="{% static 'component/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <link rel='stylesheet' href="{% static 'component/css/fullcalendar.css' %}">
+  <script src="https://apis.google.com/js/api:client.js"></script>
+    <script src="{% static 'component/js/cal_lib/jquery.min.js' %}"></script>
+    <script src="{% static 'component/js/cal_lib/moment.min.js' %}"></script>
+    <script src="{% static 'component/js/fullcalendar.js' %}"></script>
+    <script type='text/javascript' src="{% static 'component/js/gcal.js' %}"></script>
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
+  <script type='text/javascript'>
+    
+    $(function() {
+      $('#calendar').fullCalendar({
+        googleCalendarApiKey: 'AIzaSyBM2OPCE8-jcwgjj6UJeXdy1G_B31Z71yQ',
+        height: $(window).height()*0.8,
+        nowIndicator: true,
+        businessHours: true,
+        events: {
+          googleCalendarId: 'boycatbay@gmail.com'
+        },
+        header: {
+            left: 'prev,next today myCustomButton',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+}
+      });
+    });
+    
+
+    
+  </script>
+   
+
+<body>
+  <nav>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <div class="nav-wrapper purple darken-1">
+      <a href="/landing" class="brand-logo">ITS100:Management</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/announce">Announcement</a></li>
+        <li><a href="/student">Students</a></li>
+        <li><a href="#!">Classwork</a></li>
+        <li><a href="#!">Plagiarism</a></li>
+        <li><a href="/logout">Sign out</a></li>
+      </ul>
+    </div>
+  </nav>
+  <ul id="slide-out" class="sidenav">
+    <li><a href="/announce">Announcement</a></li>
+    <li><a href="/student">Students</a></li>
+    <li><a href="#!">Classwork</a></li>
+    <li><a href="#!">Plagiarism</a></li>
+    <li><a href="/logout" >Sign out</a></li>
+  </ul>
+
+
+  <div class="container">
+  
+    <div id="calendar"></div>
+  </div>
+
+  <footer>
+    <div class="footer-copyright purple darken-1" style="position:fixed;bottom:0;left:0;width:100%;">
+      <div class="container">
+        <a class="grey-text text-lighten-4">© 2018 CN1:Patiphan P.&Thanapong M.</a>
+
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+
+  <script src="{% static "component/js/materialize.js" %}"></script>
+  <script src="{% static "component/js/init.js" %}"></script>
+
+</body>

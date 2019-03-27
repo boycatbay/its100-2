@@ -1,0 +1,10 @@
+{% load static %}
+{% include "component/header.html" %}
+<h1 align=center>Students List</h1>
+<div class="collection">
+  {% for student in studentlist %}
+    <a href="/student/info/?userId={{student.userId}}" class="collection-item">{{ student.profile.name.fullName}}</a>
+{% endfor %}</div>
+
+
+{% include "component/footer.html" %}

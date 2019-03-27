@@ -1,0 +1,42 @@
+{% load static %}
+{% include "component/header.html" %}
+<div class="container">
+    <br />
+   <div class="row">
+
+            <div class="col m5">
+                
+                           
+                <div class="card purple darken-4">
+                <div class="card-content white-text">
+                    <span class="card-title"><img src="https:{{studentPhoto}}" alt="Smiley face" align="middle" height="150" width="150"></span>
+                                            
+                        <p>Name : {{studentName}}</p>
+                        <p>Email : {{studentMail}}</p>
+                </div>
+                </div>
+                                        
+              
+              
+            </div>
+      
+            <div class="col m7">
+              <!-- Teal page content  -->
+              <div class="card purple accent-1">
+                    <div class="card-content white-text">
+                        <span class="card-title"><img src="https:{{studentPhoto}}" alt="Smiley face" align="middle" height="150" width="150"></span>
+                                                
+                            <p>Name : {{studentName}}</p>
+                            <p>Email : {{studentMail}}</p>
+                    </div>
+                    </div>
+            </div>
+      
+          </div>
+
+</div>
+{% include "component/footer.html" %}
+
+
+
+
