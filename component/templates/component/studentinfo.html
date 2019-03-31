@@ -1,42 +1,51 @@
-{% load static %}
-{% include "component/header.html" %}
+{% load static %} {% include "component/header.html" %}
 <div class="container">
-    <br />
-   <div class="row">
+    <div class="row"></div>
+    <div class="row">
 
-            <div class="col m5">
-                
-                           
-                <div class="card purple darken-4">
+        <div class="col m5">
+
+
+            <div class="card purple darken-4">
                 <div class="card-content white-text">
-                    <span class="card-title"><img src="https:{{studentPhoto}}" alt="Smiley face" align="middle" height="150" width="150"></span>
-                                            
-                        <p>Name : {{studentName}}</p>
-                        <p>Email : {{studentMail}}</p>
+                    <span class="card-title">
+                        <img src="https:{{studentinfo.profile.photoUrl}}" alt="Smiley face" align="middle" height="150" width="150">
+                    </span>
+
+                    <p>Name : {{studentinfo.profile.name.fullName}}</p>
+                    <p>Email : {{studentinfo.profile.emailAddress}}</p>
                 </div>
+            </div>
+
+
+
+
+        </div>
+
+        <div class="col m7">
+            <div class="card purple lighten-5">
+                <span class="card-title">Assignments:</span>
+                <div class="row">
+                    <div class="col s8 offset-s2">
+                        <!-- Teal page content  -->
+                        {% for assignment in studentassignment %}
+                        <div class="card purple lighten-4">
+                            <div class="card-content white-text">
+
+
+                                <span class="card-title">
+                                    <a href="/student/info/assignment/?courseWorkId={{assignment.id}}" class="collection-item">{{assignment.title}}</a>
+                                </span>
+
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
-                                        
-              
-              
             </div>
-      
-            <div class="col m7">
-              <!-- Teal page content  -->
-              <div class="card purple accent-1">
-                    <div class="card-content white-text">
-                        <span class="card-title"><img src="https:{{studentPhoto}}" alt="Smiley face" align="middle" height="150" width="150"></span>
-                                                
-                            <p>Name : {{studentName}}</p>
-                            <p>Email : {{studentMail}}</p>
-                    </div>
-                    </div>
-            </div>
-      
-          </div>
+        </div>
+    </div>
 
 </div>
+
 {% include "component/footer.html" %}
-
-
-
-

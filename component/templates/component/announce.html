@@ -1,44 +1,64 @@
 {% load static %}
 {% include "component/header.html" %}
   <div class="container">
-    <h1 align="center">Announcement</h1>
-    <form method="post">
-      {% csrf_token %}
-      {{ form }}
-      <input type="submit" value="Submit">
-  </form>
-  </div>
+    <div class="row"><h1 align="center">Announcement</h1></div>
+    <div class="row">
+      
+        <div class="col s6 ">
+            <div class="card purple lighten-3">
+                <div class="card-content black-text">
+                <span class="card-title">Recent Announcements</span>
+            <div class="row">
+              <div class="col s10 push-s1 ">
+                <div class="card purple lighten-5">
+                  <div class="card-content black-text">
+                    <span class="card-title">Recent Announcement1:</span>
+                    <p>{{text1.0}}</p>
+                  </div>
+                </div>
+              </div>
+             
+          
+           
+          </div>
+          
+            <div class="row">
+              <div class="col s10 push-s1">
+                <div class="card purple lighten-5">
+                  <div class="card-content black-text">
+                    <span class="card-title">Recent Announcement2:</span>
+                    <p>{{text2.0}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+     
+          <div class="col s6">
+      
+        <div class="card purple lighten-5">
+          <div class="card-content black-text">
+            <span class="card-title">Create Announcement</span>
+        <div class="row">
+          <div class="col s10 push-s1">
+          <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+      </div>
+      </div>
+      </div>
+ 
  
         
- </div>
 
- <div id="card">
 
-  <div class="row">
-    <div class="col s12 offset-m3 m6">
-      <div class="card purple darken-4">
-        <div class="card-content white-text">
-          <span class="card-title">Recent Announcement1:</span>
-          <p>{{text1.0}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
- 
+
 </div>
-<div id="card">
-
-  <div class="row">
-    <div class="col s12 offset-m3 m6">
-      <div class="card purple darken-4">
-        <div class="card-content white-text">
-          <span class="card-title">Recent Announcement2:</span>
-          <p>{{text2.0}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
- 
 </div>
-
 {% include "component/footer.html" %}
