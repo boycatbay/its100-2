@@ -2,9 +2,20 @@
 {% include "component/header.html" %}
 <h1 align=center>Students List</h1>
 <div class="collection">
-  {% for student in studentlist %}
-    <a href="/student/info/?userId={{student.userId}}" class="collection-item">{{ student.profile.name.fullName}}</a>
-{% endfor %}</div>
+    
+    <div class="row">
+      <div class="col s8 offset-s2">
+              {% for student in studentlist %}
+              <div class="card deep-purple lighten-3">
+                  <div class="card-content black-text">
+                      <a href="/student/info/?userId={{student.userId}}" class="collection-item">{{ student.profile.name.fullName}}</a>
+                  </div>
+              </div>
+            {% endfor %}</div>
+      </div>
+    </div>
+     
 
+       
 
 {% include "component/footer.html" %}
