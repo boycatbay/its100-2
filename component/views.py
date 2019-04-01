@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.http import Http404
@@ -13,24 +13,32 @@ from .classroomAccessAPI import *
 
 def index(request):
     if request.user.is_authenticated:
-        template = loader.get_template('component/landing.html')
+        return redirect('/landing')
     else:
         template = loader.get_template('component/index.html')
+        return HttpResponse(template.render({}, request))
 
-    return HttpResponse(template.render({}, request))
+    
 
 
 def landing(request):
     if request.user.is_authenticated:
         template = 'component/landing.html'
-        form = courseSelect(request)
-        userProfile = getuserProfile(request)
-        name = userProfile['name']['fullName']
-        pic = 'https:'+userProfile['photoUrl']
-
+        if 'cours' in request.POST:
+            ans = request.POST.get('couser')
+            form = getcousreList(request)
+            userProfile = getuserProfile(request)
+            name = userProfile['name']['fullName']
+            pic = 'https:'+userProfile['photoUrl']
+        else:
+            ans = 'none'
+            form = getcousreList(request)
+            userProfile = getuserProfile(request)
+            name = userProfile['name']['fullName']
+            pic = 'https:'+userProfile['photoUrl']
     else:
         template = loader.get_template('component/index.html')
-    return render(request, template, {'uname': name,'form':form})
+    return render(request, template, {'name':name,'pic':pic,'form':form,'ans':ans})
 
 
 def announce(request):
