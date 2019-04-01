@@ -5,7 +5,7 @@ from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout as auth_logout
 
-from .forms import announces
+from .forms import *
 from .classroomAccessAPI import *
 
 # Create your views here.
@@ -23,14 +23,14 @@ def index(request):
 def landing(request):
     if request.user.is_authenticated:
         template = 'component/landing.html'
-
+        form = courseSelect(request)
         userProfile = getuserProfile(request)
         name = userProfile['name']['fullName']
         pic = 'https:'+userProfile['photoUrl']
 
     else:
         template = loader.get_template('component/index.html')
-    return render(request, template, {'uname': name})
+    return render(request, template, {'uname': name,'form':form})
 
 
 def announce(request):

@@ -27,7 +27,7 @@
     $(function() {
       $('#calendar').fullCalendar({
         googleCalendarApiKey: 'AIzaSyBM2OPCE8-jcwgjj6UJeXdy1G_B31Z71yQ',
-        height: $(window).height()*0.8,
+        aspectRatio: 2.5,
         nowIndicator: true,
         businessHours: true,
         events: {
@@ -75,7 +75,8 @@
     <div class="row"></div>
       <div class="row">
         
-            <div class="col s4 push-s8"><span class="flow-text">DropDown</span></div>
+            <div class="col s4 push-s8"><span class="flow-text">{% csrf_token %}
+              {{ form }}</span></div>
             <div class="col s4 pull-s4"><span class="flow-text">{{uname}}</span></div>
           
         

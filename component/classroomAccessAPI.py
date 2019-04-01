@@ -4,11 +4,11 @@ import json
 # Cousre
 
 
-def cousreList(request):
+def getcousreList(request):
     social = request.user.social_auth.get(provider='google-oauth2')
     response = requests.get(
         'https://classroom.googleapis.com/v1/courses',
-        params={'access_token': social.extra_data['access_token']}
+        params={'access_token': social.extra_data['access_token'],'teacherId':'me'}
     )
     listCourse = response.json().get('courses')
     return listCourse
