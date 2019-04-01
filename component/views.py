@@ -6,9 +6,6 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import logout as auth_logout
 
 from .forms import announces
-from .studentslist import studentlist
-from .studentgetinfo import studentgetinfo as studentin
-from .getMail import studentMail
 from .classroomAccessAPI import *
 
 # Create your views here.
