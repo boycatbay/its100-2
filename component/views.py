@@ -9,11 +9,26 @@ from .forms import *
 from .classroomAccessAPI import *
 
 # Create your views here.
+from django import template
+from django.contrib.auth.models import Group 
+from django.contrib.auth.models import User
 
+def username_present(username):
+    if User.objects.filter(username=username).exists():
+        return True
+    
+    return False
+def has_group(user, group_name): 
+    return Group.objects.get(name=group_name).user_set.filter(id=user.id).exists()
+    return True if group in user.groups.all() else False
 
 def index(request):
     if request.user.is_authenticated:
-        return redirect('/landing')
+        if has_group(request.user,'TA') or has_group(request.user,'Instructor'):
+            return redirect('/landing')
+        else:
+            template = loader.get_template('component/index.html')
+            return HttpResponse(template.render({}, request))
     else:
         template = loader.get_template('component/index.html')
         return HttpResponse(template.render({}, request))
@@ -112,3 +127,7 @@ def logout(request):
         auth_logout(request)
 
     return render(request, template, {})
+
+def error(request):
+    template = 'component/error.html'
+    return render(request,template,{})

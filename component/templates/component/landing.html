@@ -1,4 +1,5 @@
-{% load static %}
+{% load static %} 
+{% load authextras %}
 <html lang="en">
 
 <head>
@@ -27,7 +28,8 @@
     $(function() {
       $('#calendar').fullCalendar({
         googleCalendarApiKey: 'AIzaSyBM2OPCE8-jcwgjj6UJeXdy1G_B31Z71yQ',
-        aspectRatio: 2.5,
+        height: $(window).height()*0.5,
+        contentHeight: 'auto',
         nowIndicator: true,
         businessHours: true,
         events: {
@@ -45,86 +47,96 @@
     $('select').formSelect();
   });
  
-
     
   </script>
-   
+
 
 <body>
-  <nav>
-    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    <div class="nav-wrapper purple darken-1">
-      <a href="/landing" class="brand-logo">ITS100:Management</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="/announce">Announcements</a></li>
-        <li><a href="/coursework">Posted Courseworks</a></li>
-        <li><a href="/student">Student List</a></li>
-        <li><a href="#!">Upload Classwork</a></li>
-        <li><a href="#!">Plagiarism</a></li>
-        <li><a href="/logout">Sign out</a></li>
-      </ul>
-    </div>
-  </nav>
-  <ul id="slide-out" class="sidenav">
-    <li><a href="/announce">Announcements</a></li>
-    <li><a href="/coursework">Posted Courseworks</a></li>
-    <li><a href="/student">Student List</a></li>
-    <li><a href="#!">Upload Classwork</a></li>
-    <li><a href="#!">Plagiarism</a></li>
-    <li><a href="/logout" >Sign out</a></li>
-  </ul>
-
-
-  <div class="container">
-    <div class="row"></div>
-      <div class="row">
-          <div class="col s6"><span class="flow-text">Name{{name}}{{ans}}</span></div>
-            <div class="input-field col s6">
-                <form  method="post">
-                    {% csrf_token %}
-              <select name="couser">
-                {% if ans != 'none'%}
-                {% for cousre in form %} 
-                {% if cousre.id == ans  %}
-                <option selected="selected" value="{{cousre.id}}">{{ cousre.name }}</option>
-                {% else %}
-                <option value="{{cousre.id}}">{{ cousre.name }}</option>
-                {% endif %}
-                {% endfor %}
-                {% else %}
-                <option selected="selected" disabled>Please select course!!</option>
-                {% for cousre in form %} 
-                <option value="{{cousre.id}}">{{ cousre.name }}</option>
-                {% endfor %}
-                {% endif %}
-              </select>
-              <input type="submit"  name="cours" >
-            </form>
-          </div>
-            
+    <nav>
+      <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <div class="nav-wrapper purple darken-1">
+        <a href="/landing" class="brand-logo">ITS100:Management</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}
+          <li><a href="/announce">Announcements</a></li>
+          <li><a href="#!">Upload Classwork</a></li>
+          {% endif %}
+          <li><a href="/coursework">Courseworks</a></li>
+          <li><a href="/student">Student List</a></li>
           
-        
+          <li><a href="#!">Plagiarism</a></li>
+          <li><a href="/logout">Sign out</a></li>
+        </ul>
+      </div>
+    </nav>
+    <ul id="slide-out" class="sidenav">
+        {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}
+        <li><a href="/announce">Announcements</a></li>
+        <li><a href="#!">Upload Classwork</a></li>
+        {% endif %}
+      <li><a href="#!">Upload Classwork</a></li>
+      <li><a href="/coursework">Courseworks</a></li>
+      <li><a href="/student">Student List</a></li>
+      <li><a href="#!">Plagiarism</a></li>
+      <li><a href="/logout" >Sign out</a></li>
+    </ul>
+
+
+    <div class="container">
+      <div class="row"></div>
+      <div class="row">
+
+
+        <div class="col s6">
+          <img src="{{pic}}" alt="Smiley face" align="middle" height="100" width="100">
+          <span class="flow-text">&nbsp;Name: {{name}}</span>
+        </div>
+        <div class="input-field col s6">
+            <form  method="post">
+                {% csrf_token %}
+          <select name="couser">
+            {% if ans != 'none'%}
+            {% for cousre in form %} 
+            {% if cousre.id == ans  %}
+            <option selected="selected" value="{{cousre.id}}">{{ cousre.name }}</option>
+            {% else %}
+            <option value="{{cousre.id}}">{{ cousre.name }}</option>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            <option selected="selected" disabled>Please select course!!</option>
+            {% for cousre in form %} 
+            <option value="{{cousre.id}}">{{ cousre.name }}</option>
+            {% endfor %}
+            {% endif %}
+          </select>
+          <input type="submit"  name="cours" >
+        </form>
+      </div>
+
+
+
       </div>
       <div class="row"></div>
       <div class="row">
         <div class="col s12">
-    <div id="calendar"></div>
-  </div>
-  </div>
-</div>
-  <footer>
-    <div class="footer-copyright purple darken-1" style="position:fixed;bottom:0;left:0;width:100%;">
-      <div class="container">
-        <a class="grey-text text-lighten-4">© 2018 CN1:Patiphan P.&Thanapong M.</a>
-
+          <div id="calendar"></div>
+        </div>
       </div>
     </div>
-  </footer>
+    <footer>
+      <div class="footer-copyright purple darken-1" style="position:fixed;bottom:0;left:0;width:100%;">
+        <div class="container">
+          <a class="grey-text text-lighten-4">© 2018 CN1:Patiphan P.&Thanapong M.</a>
+
+        </div>
+      </div>
+    </footer>
 
 
-  <!--  Scripts-->
+    <!--  Scripts-->
 
-  <script src="{% static "component/js/materialize.js" %}"></script>
-  <script src="{% static "component/js/init.js" %}"></script>
-
-</body>
+  
+    <script src="{% static "component/js/materialize.js" %}"></script>
+    <script src="{% static "component/js/init.js" %}"></script>
+  </body>

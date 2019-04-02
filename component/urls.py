@@ -19,6 +19,7 @@ urlpatterns = [
     path('student/info/assignment/',views.studentAssignment,name='studentAssignment'),
     path('coursework/',views.courseWork,name='courseWork'),
     path('logout/',views.logout,name='logout'),
+    path('error/',views.error,name='error'),
     
    
 ]
