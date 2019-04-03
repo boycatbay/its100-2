@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
 
 
-  <title>ITS100:Management_Login</title>
+  <title>ITS100:Management</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -16,38 +16,66 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
   <link rel='stylesheet' href="{% static 'component/css/fullcalendar.css' %}">
   <script src="https://apis.google.com/js/api:client.js"></script>
-   
+    <script src="{% static 'component/js/cal_lib/jquery.min.js' %}"></script>
+    <script src="{% static 'component/js/cal_lib/moment.min.js' %}"></script>
+    <script src="{% static 'component/js/fullcalendar.js' %}"></script>
+    <script type='text/javascript' src="{% static 'component/js/gcal.js' %}"></script>
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script type='text/javascript'>
+    
+    $(function() {
+      $('#calendar').fullCalendar({
+        googleCalendarApiKey: 'AIzaSyBM2OPCE8-jcwgjj6UJeXdy1G_B31Z71yQ',
+        height: 'parent',
+        contentHeight: 'auto',
+        nowIndicator: true,
+        businessHours: true,
+        events: {
+          googleCalendarId: 'boycatbay@gmail.com'
+        },
+        header: {
+            left: 'prev,next today myCustomButton',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+}
+      });
+    });
+    
+    $(document).ready(function(){
+    $('select').formSelect();
+  });
+ 
+    
+  </script>
       </head>
   <body>
     <header>
         <nav>
-          <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <div class="nav-wrapper purple darken-1">
-            <a href="/" class="brand-logo">ITS100:Management</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}
+            <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <div class="nav-wrapper purple darken-1">
+              <a href="/" class="brand-logo">ITS100:Management</a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                  {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}
+                <li><a href="/announce">Announcements</a></li>
+                <li><a href="#!">Upload Classwork</a></li>
+                {% endif %}
+                <li><a href="/coursework">Courseworks</a></li>
+                <li><a href="/student">Student List</a></li>
+                
+                <li><a href="#!">Plagiarism</a></li>
+                <li><a href="/logout">Sign out</a></li>
+              </ul>
+            </div>
+          </nav>
+          <ul id="slide-out" class="sidenav">
+              {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}
               <li><a href="/announce">Announcements</a></li>
               <li><a href="#!">Upload Classwork</a></li>
               {% endif %}
-              <li><a href="/coursework">Courseworks</a></li>
-              <li><a href="/student">Student List</a></li>
-              
-              <li><a href="#!">Plagiarism</a></li>
-              <li><a href="/logout">Sign out</a></li>
-            </ul>
-          </div>
-        </nav>
-        <ul id="slide-out" class="sidenav">
-            {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}
-            <li><a href="/announce">Announcements</a></li>
-            <li><a href="#!">Upload Classwork</a></li>
-            {% endif %}
-          <li><a href="#!">Upload Classwork</a></li>
-          <li><a href="/coursework">Courseworks</a></li>
-          <li><a href="/student">Student List</a></li>
-          <li><a href="#!">Plagiarism</a></li>
-          <li><a href="/logout" >Sign out</a></li>
-        </ul>
+            <li><a href="/coursework">Courseworks</a></li>
+            <li><a href="/student">Student List</a></li>
+            <li><a href="#!">Plagiarism</a></li>
+            <li><a href="/logout" >Sign out</a></li>
+          </ul>
       </header>
