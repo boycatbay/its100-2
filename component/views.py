@@ -123,10 +123,13 @@ def studentAssignment(request):
 
 def logout(request):
     if request.user.is_authenticated:
-        template = 'component/index.html'
         auth_logout(request)
+        return redirect('/')
+    else:
+        template = 'component/index.html'
+        return render(request, template, {})
 
-    return render(request, template, {})
+    
 
 def error(request):
     template = 'component/error.html'

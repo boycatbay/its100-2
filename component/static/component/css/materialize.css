@@ -2162,20 +2162,17 @@ html {
 /**
  * Remove the margin in all browsers (opinionated).
  */
-body {
-  margin: 0;
-  padding-bottom:60px;
-}
+
 body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  margin: 0;
 }
 
 main {
   flex: 1 0 auto;
 }
-
 /**
  * Add the correct display in IE 9-.
  */

@@ -19,11 +19,13 @@
    
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
   <body>
+    <header>
         <nav>
           <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           <div class="nav-wrapper purple darken-1">
-            <a href="/landing" class="brand-logo">ITS100:Management</a>
+            <a href="/" class="brand-logo">ITS100:Management</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}
               <li><a href="/announce">Announcements</a></li>
@@ -48,3 +50,4 @@
           <li><a href="#!">Plagiarism</a></li>
           <li><a href="/logout" >Sign out</a></li>
         </ul>
+      </header>
