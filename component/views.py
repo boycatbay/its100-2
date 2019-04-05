@@ -100,26 +100,39 @@ def studentgetinfo(request):
         template = 'component/studentinfo.html'
         uID = str(request.GET.get('userId'))
         studentInfo = getStudentInfo(request, uID)
-        studentAssignment = getPostedAssignments(request)
+        studentAssignment = getpostedcoursework(request)
+        submissionTime = getSubmissionTime(request, uID)
     else:
         template = 'component/index.html'
-    return render(request, template, {'studentinfo': studentInfo, 'studentassignment': studentAssignment})
+    return render(request, template, {'uId':uID,'studentinfo': studentInfo, 'studentassignment': studentAssignment,'submissionTime':submissionTime})
 
 
 def courseWork(request):
     if request.user.is_authenticated:
         template = 'component/coursework.html'
-        assignmentList = getPostedAssignments(request)
+        assignmentList = getpostedcoursework(request)
     else:
         template = 'component/index.html'
     return render(request, template, {'assignmentList': assignmentList})
 
 
-def studentAssignment(request):
 
 
 
-    return None
+def assignmentWork(request):
+    if request.user.is_authenticated:
+        template = 'component/assignmentCollection.html'
+        uID = str(request.GET.get('userId'))
+        studentInfo = getStudentInfo(request, uID)
+        courseWorkId = str(request.GET.get('courseWorkId'))
+        courseWorkName = str(request.GET.get('courseWorkName'))
+        submissionId = str(request.GET.get('Id'))
+        assignmentWork = getAssignmentwork(request,courseWorkId,submissionId)
+       
+
+    else:
+        template = 'component/index.html'
+    return render(request, template, {'studentinfo': studentInfo,'courseWorkName':courseWorkName, 'assignmentWork': assignmentWork})
 
 def logout(request):
     if request.user.is_authenticated:
@@ -128,6 +141,7 @@ def logout(request):
     else:
         template = 'component/index.html'
         return render(request, template, {})
+
 
     
 

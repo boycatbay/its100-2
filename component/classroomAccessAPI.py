@@ -59,7 +59,7 @@ def makeAnnouncment(request, textarea):
 
 
 # coursework
-def postedcoursework(request):
+def getpostedcoursework(request):
     social = request.user.social_auth.get(provider='google-oauth2')
     courseId = '19606736198'
     response = requests.get(
@@ -102,12 +102,24 @@ def getStudentAssignments(request,courseWorkId,userId):
     assignments = response.json().get('studentSubmissions')
     return assignments
 
-def getPostedAssignments(request):
+#Late Submission tagging
+
+def getSubmissionTime(request,userId):
     social = request.user.social_auth.get(provider='google-oauth2')
     courseId = '19606736198'
     response = requests.get(
-        'https://classroom.googleapis.com/v1/courses/'+courseId+'/courseWork',
-        params={'access_token': social.extra_data['access_token'],'orderBy':'updateTime desc'}
+        'https://classroom.googleapis.com/v1/courses/'+courseId+'/courseWork/-/studentSubmissions',
+        params={'access_token': social.extra_data['access_token'],'userId':userId}
     )
-    assignments = response.json().get('courseWork')
-    return assignments
+    submissionTime = response.json().get('studentSubmissions')
+    return submissionTime
+
+def getAssignmentwork(request,courseWorkId,submissionId):
+    social = request.user.social_auth.get(provider='google-oauth2')
+    courseId = '19606736198'
+    response = requests.get(
+        'https://classroom.googleapis.com/v1/courses/'+courseId+'/courseWork/'+courseWorkId+'/studentSubmissions/'+submissionId,
+        params={'access_token': social.extra_data['access_token']}
+    )
+    assignmentWork = response.json()
+    return assignmentWork

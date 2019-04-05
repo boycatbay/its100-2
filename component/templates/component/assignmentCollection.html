@@ -1,0 +1,53 @@
+{% load static %} {% include "component/header.html" %}
+<main>
+<div class="container">
+    <div class="row"></div>
+    <div class="row">
+
+        <div class="col s5">
+
+
+            <div class="card purple darken-4">
+                <div class="card-content white-text">
+                    <span class="card-title">
+                        <img src="https:{{studentinfo.profile.photoUrl}}" alt="Smiley face" align="middle" height="150" width="150">
+                    </span>
+
+                    <p>Name : {{studentinfo.profile.name.fullName}}</p>
+                    <p>Email : {{studentinfo.profile.emailAddress}}</p>
+                </div>
+            </div>
+       
+
+
+
+        </div>
+
+        <div class="col s7">
+            <div class="card purple lighten-5">
+                <span class="card-title">Assignments:{{courseWorkName}}</span>
+                <div class="row">
+                    <div class="col s8 offset-s2">
+                        <!-- Teal page content  -->
+                        {% for files in assignmentWork.assignmentSubmission.attachments %}
+                            
+                        <div class="card indigo lighten-3">
+                            <div class="card-content white-text">
+
+
+                                <div class="collection">
+                                    <a href="{{files.driveFile.alternateLink}}" class="collection-item">{{files.driveFile.title}}</a>
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</main>
+{% include "component/footer.html" %}

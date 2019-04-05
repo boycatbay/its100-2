@@ -17,7 +17,7 @@
                     <p>Email : {{studentinfo.profile.emailAddress}}</p>
                 </div>
             </div>
-        </main>
+       
 
 
 
@@ -30,16 +30,40 @@
                     <div class="col s8 offset-s2">
                         <!-- Teal page content  -->
                         {% for assignment in studentassignment %}
-                        <div class="card purple lighten-4">
+                            {% for submission in submissionTime %}
+                            {% if assignment.id == submission.courseWorkId %}
+                                {% if submission.late %}
+
+                        <div class="card red accent-4">
                             <div class="card-content white-text">
-
-
-                                <span class="card-title">
-                                    <a href="/student/info/assignment/?courseWorkId={{assignment.id}}" class="collection-item">{{assignment.title}}</a>
-                                </span>
+                                
+                                
+                                <h7>Status : Late Submission</h7>
+                                <div class="collection">
+                                    <a href="/student/info/assignment/detail/?courseWorkId={{assignment.id}}&courseWorkName={{assignment.title}}&Id={{submission.id}}&userId={{uId}}" class="collection-item">{{assignment.title}}</a>
+                                </div>
+                                
 
                             </div>
                         </div>
+                        {% else %}
+                        <div class="card green darken-2">
+                            <div class="card-content white-text">
+                                    
+
+                                <h7>Status : On-time Submission</h7>
+                                <div class="collection">
+                                    <a href="/student/info/assignment/detail/?courseWorkId={{assignment.id}}&courseWorkName={{assignment.title}}&Id={{submission.id}}&userId={{uId}}" class="collection-item">{{assignment.title}}</a>
+                                </div>
+                              
+
+                            </div>
+                        </div>
+                        {% endif %}
+                       
+                        {% endif %}
+                        {% endfor %}
+
                         {% endfor %}
                     </div>
                 </div>
@@ -48,5 +72,5 @@
     </div>
 
 </div>
-
+</main>
 {% include "component/footer.html" %}
