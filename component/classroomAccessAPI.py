@@ -29,9 +29,8 @@ def getuserProfile(request):
 # Announcment
 
 
-def getAnnouncment(request):
+def getAnnouncment(request,courseId):
     social = request.user.social_auth.get(provider='google-oauth2')
-    courseId = '19606736198'
     response = requests.get(
         'https://classroom.googleapis.com/v1/courses/'+courseId+'/announcements',
         params={
