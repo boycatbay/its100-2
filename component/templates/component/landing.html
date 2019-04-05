@@ -8,13 +8,26 @@
 
 
         <div class="col s6">
-          <img src="{{pic}}" alt="Smiley face" align="middle" height="100" width="100">
-          <span class="flow-text">&nbsp;Name: {{name}}</span>
+            <div class="card horizontal">
+                <div class="card-image" >
+                  <img src="{{pic}}" height="120" width="120">
+                </div>
+                <div class="card-stacked">
+                  <div class="card-content">
+                      <h3 class="flow-text" style="text-align: center;">{{name}}</h3>
+                  </div>
+                  
+                </div>
+              </div>
+
         </div>
+
+
+        
         <div class="input-field col s6">
             <form  method="post">
                 {% csrf_token %}
-          <select name="couser">
+          <select class="browser-default" name="couser">
             {% if ans != 'none'%}
             {% for cousre in form %} 
             {% if cousre.id == ans  %}
@@ -24,13 +37,18 @@
             {% endif %}
             {% endfor %}
             {% else %}
-            <option selected="selected" disabled>Please select course!!</option>
+            <option selected="selected" style="color:red" disabled>Please select course!!</option>
             {% for cousre in form %} 
             <option value="{{cousre.id}}">{{ cousre.name }}</option>
             {% endfor %}
             {% endif %}
           </select>
-          <input type="submit"  name="cours" >
+        <br />
+
+          <button class="btn waves-effect waves-light" style="float: right;" type="submit" name="cours">Submit
+              <i class="material-icons right">send</i>
+            </button>
+
         </form>
       </div>
 

@@ -46,30 +46,38 @@
       $('#modal').modal();
     $('#modal').modal('open');
     $('select').formSelect();
+    $(".dropdown-trigger").dropdown();
   });
     
   </script>
       </head>
   <body>
     <header>
+        <ul id="courseWork" class="dropdown-content">
+            <li><a href="/coursework">Courseworks</a></li>
+            {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}           
+            <li><a href="#!">Upload Classwork</a></li>
+            {% endif %}
+            <li class="divider"></li>
+            <li><a href="#!">Plagiarism</a></li>
+          </ul>
         <nav>
             <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <div class="nav-wrapper purple darken-1">
               <a href="/" class="brand-logo">ITS100:Management</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
-                  {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}
+                  <li><a href="/"><i class="material-icons">home</i></a></li>
+                  {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}               
                 <li><a href="/announce">Announcements</a></li>
-                <li><a href="#!">Upload Classwork</a></li>
                 {% endif %}
-                <li><a href="/coursework">Courseworks</a></li>
                 <li><a href="/student">Student List</a></li>
-                
-                <li><a href="#!">Plagiarism</a></li>
+                <li><a class="dropdown-trigger" href="#!" data-target="courseWork">Coursework<i class="material-icons right">arrow_drop_down</i></a></li>
                 <li><a href="/logout">Sign out</a></li>
               </ul>
             </div>
           </nav>
           <ul id="slide-out" class="sidenav">
+              <li><a href="/">Home</a></li>
               {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}
               <li><a href="/announce">Announcements</a></li>
               <li><a href="#!">Upload Classwork</a></li>

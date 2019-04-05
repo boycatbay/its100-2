@@ -10,8 +10,13 @@
             <div class="card purple darken-4">
                 <div class="card-content white-text">
                     <span class="card-title">
-                        <img src="https:{{studentinfo.profile.photoUrl}}" alt="Smiley face" align="middle" height="150" width="150">
-                    </span>
+                            {% if 'https:' not in studentinfo.profile.photoUrl %}
+    
+                            <img src="https:{{studentinfo.profile.photoUrl}}" alt="Smiley face" align="middle" height="150" width="150">
+                            {% else %}
+                            <img src="{{studentinfo.profile.photoUrl}}" alt="Smiley face" align="middle" height="150" width="150">
+                            {% endif %}
+                        </span>
 
                     <p>Name : {{studentinfo.profile.name.fullName}}</p>
                     <p>Email : {{studentinfo.profile.emailAddress}}</p>
@@ -29,6 +34,7 @@
                 <div class="row">
                     <div class="col s8 offset-s2">
                         <!-- Teal page content  -->
+                        {% if assignmentWork.assignmentSubmission %}
                         {% for files in assignmentWork.assignmentSubmission.attachments %}
                             
                         <div class="card indigo lighten-3">
@@ -42,6 +48,11 @@
                             </div>
                         </div>
                         {% endfor %}
+                        {% else %}
+                        <div class="card-content red-text"> 
+                            <h3>No file submitted</h3>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -40,9 +40,8 @@ def getAnnouncment(request,courseId):
     return listAnnounce
 
 
-def makeAnnouncment(request, textarea):
+def makeAnnouncment(request,courseId,textarea):
     social = request.user.social_auth.get(provider='google-oauth2')
-    courseId = '19606736198'
     announcements = {
         "assigneeMode": "ALL_STUDENTS",
         "text": textarea,
@@ -58,9 +57,8 @@ def makeAnnouncment(request, textarea):
 
 
 # coursework
-def getpostedcoursework(request):
+def getpostedcoursework(request,courseId):
     social = request.user.social_auth.get(provider='google-oauth2')
-    courseId = '19606736198'
     response = requests.get(
         'https://classroom.googleapis.com/v1/courses/'+courseId+'/courseWork',
         params={'access_token': social.extra_data['access_token'],
@@ -70,9 +68,8 @@ def getpostedcoursework(request):
     return postedcoursework
 
 
-def getStudentList(request):
+def getStudentList(request,courseId):
     social = request.user.social_auth.get(provider='google-oauth2')
-    courseId = '19606736198'
     response = requests.get(
         'https://classroom.googleapis.com/v1/courses/'+courseId+'/students',
         params={'access_token': social.extra_data['access_token']}
@@ -81,9 +78,9 @@ def getStudentList(request):
     return studentList
 
 
-def getStudentInfo(request, userId):
+def getStudentInfo(request,courseId,userId):
     social = request.user.social_auth.get(provider='google-oauth2')
-    courseId = '19606736198'
+
     response = requests.get(
         'https://classroom.googleapis.com/v1/courses/'+courseId+'/students/'+userId,
         params={'access_token': social.extra_data['access_token']}
@@ -91,9 +88,9 @@ def getStudentInfo(request, userId):
     studentInfo = response.json()
     return studentInfo
 
-def getStudentAssignments(request,courseWorkId,userId):
+def getStudentAssignments(request,courseId,courseWorkId,userId):
     social = request.user.social_auth.get(provider='google-oauth2')
-    courseId = '19606736198'
+
     response = requests.get(
         'https://classroom.googleapis.com/v1/courses/'+courseId+'/courseWork/'+courseWorkId+'/studentSubmissions',
         params={'access_token': social.extra_data['access_token'],'userId':userId}
@@ -103,19 +100,17 @@ def getStudentAssignments(request,courseWorkId,userId):
 
 #Late Submission tagging
 
-def getSubmissionTime(request,userId):
+def getSubmissionTime(request,courseId,userId):
     social = request.user.social_auth.get(provider='google-oauth2')
-    courseId = '19606736198'
     response = requests.get(
         'https://classroom.googleapis.com/v1/courses/'+courseId+'/courseWork/-/studentSubmissions',
-        params={'access_token': social.extra_data['access_token'],'userId':userId}
+        params={'access_token': social.extra_data['access_token'],'userId':userId,'states':'TURNED_IN'}
     )
     submissionTime = response.json().get('studentSubmissions')
     return submissionTime
 
-def getAssignmentwork(request,courseWorkId,submissionId):
+def getAssignmentwork(request,courseId,courseWorkId,submissionId):
     social = request.user.social_auth.get(provider='google-oauth2')
-    courseId = '19606736198'
     response = requests.get(
         'https://classroom.googleapis.com/v1/courses/'+courseId+'/courseWork/'+courseWorkId+'/studentSubmissions/'+submissionId,
         params={'access_token': social.extra_data['access_token']}

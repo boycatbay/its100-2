@@ -4816,13 +4816,13 @@ small {
 }
 
 .card.horizontal.small .card-image, .card.horizontal.medium .card-image, .card.horizontal.large .card-image {
-  height: 100%;
+  height: 50%;
   max-height: none;
   overflow: visible;
 }
 
 .card.horizontal.small .card-image img, .card.horizontal.medium .card-image img, .card.horizontal.large .card-image img {
-  height: 100%;
+  height: 50%;
 }
 
 .card.horizontal .card-image {
@@ -4831,7 +4831,7 @@ small {
 
 .card.horizontal .card-image img {
   border-radius: 2px 0 0 2px;
-  max-width: 100%;
+  max-width: 50%;
   width: auto;
 }
 
@@ -4888,7 +4888,7 @@ small {
   position: absolute;
   bottom: 0;
   left: 0;
-  max-width: 100%;
+  max-width: 50%;
   padding: 24px;
 }
 

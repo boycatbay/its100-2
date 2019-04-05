@@ -37,25 +37,25 @@ def index(request):
 def landing(request):
     if request.user.is_authenticated :
         template = 'component/landing.html'
+        userProfile = getuserProfile(request)
+        name = userProfile['name']['fullName']
+        pic = userProfile['photoUrl']
+        http = 'http:'
+        if http not in  pic :
+            pic = http+pic
         if 'cours' in request.POST:
             ans = request.POST.get('couser')
             request.session['courseId'] = ans
-            form = getcousreList(request)
-            userProfile = getuserProfile(request)
-            name = userProfile['name']['fullName']
-            pic = 'https:'+userProfile['photoUrl']
+            
+            
         elif  'courseId' in request.session:
             ans = request.session['courseId']
-            form = getcousreList(request)
-            userProfile = getuserProfile(request)
-            name = userProfile['name']['fullName']
-            pic = 'https:'+userProfile['photoUrl']
+            
+            
         elif 'courseId' not in request.session:
             ans = 'none'
-            form = getcousreList(request)
-            userProfile = getuserProfile(request)
-            name = userProfile['name']['fullName']
-            pic = 'https:'+userProfile['photoUrl']
+            
+        form = getcousreList(request)    
         return render(request, template, {'name':name,'pic':pic,'form':form,'ans':ans})
     else:
         return redirect('/')
@@ -79,7 +79,7 @@ def announce(request):
                 # process the data in form.cleaned_data as required
                 text = form.cleaned_data['textarea']
                 matrl = form.cleaned_data['material']
-                makeAnnouncment(request, text)
+                makeAnnouncment(request,courseId,text)
                 # redirect to a new URL:
                 return render(request, 'component/landing.html')
 
@@ -96,7 +96,8 @@ def announce(request):
 def studentslist(request):
     if request.user.is_authenticated and 'courseId'  in request.session:
         template = 'component/studentslist.html'
-        studentlists = getStudentList(request)
+        courseId = request.session['courseId']
+        studentlists = getStudentList(request,courseId)
         return render(request, template, {'studentlist': studentlists})
     else:
         return redirect('/')
@@ -107,9 +108,10 @@ def studentgetinfo(request):
     if request.user.is_authenticated and 'courseId'  in request.session:
         template = 'component/studentinfo.html'
         uID = str(request.GET.get('userId'))
-        studentInfo = getStudentInfo(request, uID)
-        studentAssignment = getpostedcoursework(request)
-        submissionTime = getSubmissionTime(request, uID)
+        courseId = request.session['courseId']
+        studentInfo = getStudentInfo(request,courseId,uID)
+        studentAssignment = getpostedcoursework(request,courseId)
+        submissionTime = getSubmissionTime(request,courseId,uID)
         return render(request, template, {'uId':uID,'studentinfo': studentInfo, 'studentassignment': studentAssignment,'submissionTime':submissionTime})
     else:
         return redirect('/')
@@ -119,7 +121,8 @@ def studentgetinfo(request):
 def courseWork(request):
     if request.user.is_authenticated and 'courseId'  in request.session:
         template = 'component/coursework.html'
-        assignmentList = getpostedcoursework(request)
+        courseId = request.session['courseId']
+        assignmentList = getpostedcoursework(request,courseId)
         return render(request, template, {'assignmentList': assignmentList})
     else:
         return redirect('/')
@@ -133,11 +136,12 @@ def assignmentWork(request):
     if request.user.is_authenticated and 'courseId'  in request.session:
         template = 'component/assignmentCollection.html'
         uID = str(request.GET.get('userId'))
-        studentInfo = getStudentInfo(request, uID)
+        courseId = request.session['courseId']
+        studentInfo = getStudentInfo(request,courseId, uID)
         courseWorkId = str(request.GET.get('courseWorkId'))
         courseWorkName = str(request.GET.get('courseWorkName'))
         submissionId = str(request.GET.get('Id'))
-        assignmentWork = getAssignmentwork(request,courseWorkId,submissionId)
+        assignmentWork = getAssignmentwork(request,courseId,courseWorkId,submissionId)
         return render(request, template, {'studentinfo': studentInfo,'courseWorkName':courseWorkName, 'assignmentWork': assignmentWork})
 
     else:
@@ -150,8 +154,7 @@ def logout(request):
         request.session.flush()
         return redirect('/')
     else:
-        template = 'component/index.html'
-        return render(request, template, {})
+        return redirect('/')
 
 
     

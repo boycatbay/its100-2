@@ -10,8 +10,14 @@
             <div class="card purple darken-4">
                 <div class="card-content white-text">
                     <span class="card-title">
+                        {% if 'https:' not in studentinfo.profile.photoUrl %}
+
                         <img src="https:{{studentinfo.profile.photoUrl}}" alt="Smiley face" align="middle" height="150" width="150">
+                        {% else %}
+                        <img src="{{studentinfo.profile.photoUrl}}" alt="Smiley face" align="middle" height="150" width="150">
+                        {% endif %}
                     </span>
+
 
                     <p>Name : {{studentinfo.profile.name.fullName}}</p>
                     <p>Email : {{studentinfo.profile.emailAddress}}</p>
