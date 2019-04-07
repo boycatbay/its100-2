@@ -7,36 +7,80 @@
       
         <div class="col s6 ">
             <div class="card deep-purple lighten-3">
-                <div class="card-content white-text">
+             
                 <span class="card-title">Recent Announcements</span>
+            {% if anouncList %}   
+            {% for announce in anouncList %}
             <div class="row">
               <div class="col s10 push-s1 ">
                 <div class="card purple lighten-5">
                   <div class="card-content black-text">
-                    <span class="card-title">Recent Announcement1:</span>
-                    <p>{{text1.0}}</p>
+                    <span class="card-title">{{announce.text}}</span>
+                    <div class="row">
+                        <div class="col s8 offset-s2">
+                            <!-- Teal page content  -->
+                            {% if announce.materials  %}
+                            {% for files in announce.materials %}
+                            {% if files.driveFile %}
+                          
+                            <div class="card indigo lighten-3">
+                                <div class="card-content white-text" name="driverFile">
+    
+    
+                                    <div class="collection">
+                                        <a href="{{files.driveFile.driveFile.alternateLink}}" class="collection-item">{{files.driveFile.driveFile.title}}</a>
+                                    </div>
+    
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if files.youtubeVideo %}
+                          
+                            <div class="card indigo lighten-3">
+                                <div class="card-content white-text" name="YT">
+    
+    
+                                    <div class="collection">
+                                        <a href="{{files.youtubeVideo.alternateLink}}" class="collection-item">{{files.youtubeVideo.title}}</a>
+                                    </div>
+    
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if files.link %}
+                         
+                            <div class="card indigo lighten-3">
+                                <div class="card-content white-text" name="Link">
+    
+    
+                                    <div class="collection">
+                                        <a href="{{files.link.url}}" class="collection-item">{{files.link.title}}</a>
+                                    </div>
+    
+                                </div>
+                            </div>
+                           
+                           
+
+                            {% endif %}
+                            {% endfor %}
+                           
+
+                            {% endif %}
+                        </div>
+                    </div>
                   </div>
                 </div>
               </div>
-             
-          
-           
           </div>
-          
-            <div class="row">
-              <div class="col s10 push-s1">
-                <div class="card purple lighten-5">
-                  <div class="card-content black-text">
-                    <span class="card-title">Recent Announcement2:</span>
-                    <p>{{text2.0}}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {% endfor %}
+          {% else %}
+          <div class="card-content red-text"> 
+              <h3>No Announcement</h3>
+          </div>
+          {% endif %}
           </div>
         </div>
-        </div>
-     
           <div class="col s6">
       
         <div class="card purple lighten-5">

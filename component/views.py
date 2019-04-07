@@ -67,10 +67,6 @@ def announce(request):
         template = 'component/announce.html'
         courseId = request.session['courseId']
         anouncList = getAnnouncment(request,courseId)
-        first = anouncList[0].get('text'), anouncList[0].get(
-            'id'), anouncList[0].get('creationTime')
-        second = anouncList[1].get('text'), anouncList[1].get(
-            'id'), anouncList[1].get('creationTime')
         if request.method == 'POST':
             # create a form instance and populate it with data from the request:
             form = announces(request.POST)
@@ -79,14 +75,15 @@ def announce(request):
                 # process the data in form.cleaned_data as required
                 text = form.cleaned_data['textarea']
                 matrl = form.cleaned_data['material']
-                makeAnnouncment(request,courseId,text)
+                link = matrl.split (",")
+                makeAnnouncment(request,courseId,text,link)
                 # redirect to a new URL:
                 return render(request, 'component/landing.html')
 
         # if a GET (or any other method) we'll create a blank form
         else:
             form = announces()
-        return render(request, template, {'form': form, 'text1': first, 'text2': second})
+        return render(request, template, {'form': form, 'anouncList': anouncList})
     else:
         return redirect('/')
 

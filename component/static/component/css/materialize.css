@@ -4816,22 +4816,22 @@ small {
 }
 
 .card.horizontal.small .card-image, .card.horizontal.medium .card-image, .card.horizontal.large .card-image {
-  height: 50%;
+  height: 100%;
   max-height: none;
   overflow: visible;
 }
 
 .card.horizontal.small .card-image img, .card.horizontal.medium .card-image img, .card.horizontal.large .card-image img {
-  height: 50%;
+  height: 1000%;
 }
 
 .card.horizontal .card-image {
-  max-width: 50%;
+  max-width: 30%;
 }
 
 .card.horizontal .card-image img {
   border-radius: 2px 0 0 2px;
-  max-width: 50%;
+  max-width: 100%;
   width: auto;
 }
 

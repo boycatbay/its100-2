@@ -34,20 +34,28 @@ def getAnnouncment(request,courseId):
     response = requests.get(
         'https://classroom.googleapis.com/v1/courses/'+courseId+'/announcements',
         params={
-            'access_token': social.extra_data['access_token'], 'pageSize': 2}
+            'access_token': social.extra_data['access_token'], 'pageSize': 3,'orderBy':'updateTime desc'}
     )
     listAnnounce = response.json().get('announcements')
     return listAnnounce
 
 
-def makeAnnouncment(request,courseId,textarea):
+def makeAnnouncment(request,courseId,textarea,links):
     social = request.user.social_auth.get(provider='google-oauth2')
+    
     announcements = {
         "assigneeMode": "ALL_STUDENTS",
         "text": textarea,
-        "state": "PUBLISHED"
-
+        "state": "PUBLISHED",
+        "materials" : []
+        
     }
+    if links :
+        for link in links:
+            lin = {"link":{"url":link}}
+            announcements["materials"].append(dict(lin))
+
+    
     response = requests.post(
         'https://classroom.googleapis.com/v1/courses/'+courseId+'/announcements',
         params={'access_token': social.extra_data['access_token']}, data=json.dumps(announcements)
