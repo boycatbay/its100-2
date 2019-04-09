@@ -49,6 +49,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = "web.urls"
@@ -64,6 +65,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                'social_django.context_processors.backends',  # <--
+                'social_django.context_processors.login_redirect', # <--
             ]
         },
     }
@@ -148,6 +151,8 @@ SOCIAL_AUTH_URL_NAMESPACE = "social"
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/error'
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_SERIALIZER = "django.contrib.sessions.serializers.PickleSerializer"
+SESSION_COOKIE_HTTPONLY = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = None
+SESSION_COOKIE_AGE = 5*60
 SESSION_SAVE_EVERY_REQUEST = True
