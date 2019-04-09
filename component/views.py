@@ -78,7 +78,7 @@ def announce(request):
                 link = matrl.split (",")
                 makeAnnouncment(request,courseId,text,link)
                 # redirect to a new URL:
-                return render(request, 'component/landing.html')
+                return redirect('/announce')
 
         # if a GET (or any other method) we'll create a blank form
         else:
