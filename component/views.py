@@ -144,6 +144,13 @@ def assignmentWork(request):
     else:
         return redirect('/')
     
+def assismentCreate(request):
+    if request.user.is_authenticated:
+        template = ''
+        courseId = request.session['courseId']
+        
+
+    return None
 
 def logout(request):
     if request.user.is_authenticated:
