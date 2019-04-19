@@ -137,7 +137,7 @@ def createAssignmentwork(request,courseId,title,desc,maxPoint,links):
         "assigneeMode": "ALL_STUDENTS",
         "workType": "ASSIGNMENT",
         "state": "PUBLISHED",
-        "submissionModificationMode": "MODIFIABLE"
+        "submissionModificationMode": "MODIFIABLE",
     }
     if links :
         for link in links:
@@ -145,9 +145,8 @@ def createAssignmentwork(request,courseId,title,desc,maxPoint,links):
             assignment["materials"].append(dict(lin))
 
     response = requests.post(
-        'https://classroom.googleapis.com/v1/courses/'+courseId,
+        'https://classroom.googleapis.com/v1/courses/'+courseId+'/courseWork',
         params={'access_token': social.extra_data['access_token']},data=json.dumps(assignment)
     )
-    assignmentWork = response.json()
-    return assignmentWork
+    
 

@@ -45,9 +45,10 @@ def landing(request):
             pic = http+pic
         if 'cours' in request.POST:
             ans = request.POST.get('couser')
+            
             request.session['courseId'] = ans
-            
-            
+            request.session['courseName'] = 
+
         elif  'courseId' in request.session:
             ans = request.session['courseId']
             
@@ -55,8 +56,8 @@ def landing(request):
         elif 'courseId' not in request.session:
             ans = 'none'
             
-        form = getcousreList(request)    
-        return render(request, template, {'name':name,'pic':pic,'form':form,'ans':ans})
+        courseLists = getcousreList(request)    
+        return render(request, template, {'name':name,'pic':pic,'courseLists':courseLists,'ans':ans})
     else:
         return redirect('/')
 
@@ -83,7 +84,7 @@ def announce(request):
         # if a GET (or any other method) we'll create a blank form
         else:
             form = announces()
-        return render(request, template, {'form': form, 'anouncList': anouncList})
+        return render(request, template, {'form': form,'courseId':courseId ,'anouncList': anouncList})
     else:
         return redirect('/')
 
@@ -144,13 +145,46 @@ def assignmentWork(request):
     else:
         return redirect('/')
     
-def assismentCreate(request):
-    if request.user.is_authenticated:
-        template = ''
-        courseId = request.session['courseId']
-        
 
-    return None
+
+def uploadCourework(request):
+    # if this is a POST request we need to process the form data
+    if request.user.is_authenticated and 'courseId'  in request.session:
+        template = 'component/uploadCoursework.html'
+        courseId = request.session['courseId']
+        if request.method == 'POST':
+            # create a form instance and populate it with data from the request:
+            form = uploads(request.POST)
+            # check whether it's valid:
+            if form.is_valid():
+                # process the data in form.cleaned_data as required
+                title = form.cleaned_data['title']
+                description = form.cleaned_data['description']
+                scores = form.cleaned_data['scores']
+                matrl = form.cleaned_data['material']
+                link = matrl.split (",")
+                createAssignmentwork(request,courseId,title,description,scores,link)
+                # redirect to a new URL:
+                return redirect('/uploadcoursework')
+
+        # if a GET (or any other method) we'll create a blank form
+        else:
+            form = uploads()
+        return render(request, template, {'form': form})
+    else:
+        return redirect('/')
+
+def plagiarism(request):
+    if request.user.is_authenticated and 'courseId'  in request.session:
+        template = 'component/plgiarism.html'
+        uID = str(request.GET.get('userId'))
+        courseId = request.session['courseId']
+        studentInfo = getStudentInfo(request,courseId,uID)
+        studentAssignment = getpostedcoursework(request,courseId)
+        return render(request, template, {'uId':uID,'studentinfo': studentInfo, 'studentassignment': studentAssignment})
+    else:
+        return redirect('/')
+    
 
 def logout(request):
     if request.user.is_authenticated:
@@ -160,8 +194,6 @@ def logout(request):
     else:
         return redirect('/')
 
-
-    
 
 def error(request):
     template = 'component/error.html'

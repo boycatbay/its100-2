@@ -29,17 +29,17 @@
                 {% csrf_token %}
           <select class="browser-default" name="couser">
             {% if ans != 'none'%}
-            {% for cousre in form %} 
+            {% for cousre in courseLists %} 
             {% if cousre.id == ans  %}
-            <option selected="selected" value="{{cousre.id}}">{{ cousre.name }}</option>
+            <option selected="selected" value="{{cousre.id}},{{ cousre.name }}">{{ cousre.name }}</option>
             {% else %}
-            <option value="{{cousre.id}}">{{ cousre.name }}</option>
+            <option value="{{cousre.id}},{{ cousre.name }}">{{ cousre.name }}</option>
             {% endif %}
             {% endfor %}
             {% else %}
             <option selected="selected" style="color:red" disabled>Please select course!!</option>
-            {% for cousre in form %} 
-            <option value="{{cousre.id}}">{{ cousre.name }}</option>
+            {% for cousre in courseLists %} 
+            <option value="{{cousre.id}},{{ cousre.name }}">{{ cousre.name }}</option>
             {% endfor %}
             {% endif %}
           </select>

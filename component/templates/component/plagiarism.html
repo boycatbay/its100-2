@@ -1,0 +1,44 @@
+{% load static %}
+{% include "component/header.html" %}
+<main>
+        <div class="container">
+            <div class="row"><h1 align="center">Plagiarism Checker</h1></div>
+                <div class="input-field">
+                        <form  method="post">
+                            {% csrf_token %}
+                    <select class="browser-default" name="couser">
+                        {% if ans != 'none'%}
+                        {% for coursework in courseLists %} 
+                        {% if cousre.id == ans  %}
+                        <option selected="selected" value="{{cousre.id}},{{ cousre.name }}">{{}}</option>
+                        {% else %}
+                        <option value="{{cousre.id}},{{ cousre.name }}">{{}}</option>
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        <option selected="selected" style="color:red" disabled>Please select course!!</option>
+                        {% for coursework in courseLists %} 
+                        <option value="{{cousre.id}},{{ cousre.name }}">{{ cousre.name }}</option>
+                        {% endfor %}
+                        {% endif %}
+                    </select>
+                    <br />
+            
+                    <button class="btn waves-effect waves-light" style="float: right;" type="submit" name="cours">Submit
+                        <i class="material-icons right">Compare</i>
+                        </button>
+            
+                    </form>
+                </div>
+
+
+
+
+
+        </div>
+</main>
+
+
+
+
+{% include "component/footer.html" %}
