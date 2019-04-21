@@ -54,10 +54,8 @@
   <body>
     <header>
         <ul id="courseWork" class="dropdown-content">
-            <li><a href="/coursework">Courseworks</a></li>
-            {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}           
-            <li><a href="/uploadcoursework">Upload Classwork</a></li>
-            {% endif %}
+            <li><a href="/coursework">Courseworks</a></li>         
+            <li><a href="/uploadcoursework">Upload Classwork</a></li> 
             <li class="divider"></li>
             <li><a href="#!">Plagiarism</a></li>
           </ul>
@@ -80,8 +78,9 @@
               <li><a href="/">Home</a></li>
               {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}
               <li><a href="/announce">Announcements</a></li>
-              <li><a href="/uploadcoursework">Upload Classwork</a></li>
+
               {% endif %}
+              <li><a href="/uploadcoursework">Upload Classwork</a></li>
             <li><a href="/coursework">Courseworks</a></li>
             <li><a href="/student">Student List</a></li>
             <li><a href="#!">Plagiarism</a></li>

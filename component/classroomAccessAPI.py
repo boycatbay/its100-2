@@ -1,6 +1,7 @@
 import requests
 import json
-
+#import io
+#from apiclient.http import MediaIoBaseDownload
 # Cousre
 
 
@@ -149,4 +150,17 @@ def createAssignmentwork(request,courseId,title,desc,maxPoint,links):
         params={'access_token': social.extra_data['access_token']},data=json.dumps(assignment)
     )
     
+#plagiarism
 
+# def plagiarism(request):
+#    social = request.user.social_auth.get(provider='google-oauth2')
+#    fileId = '1jHPHxzGzIxN9FIQalxe2As2XWXI-obkF'
+#    response = requests.get(
+#        'https://www.googleapis.com/drive/v3/files/'+fileId+'?alt=media',
+#        params={'access_token': social.extra_data['access_token']}
+#    )
+#    fh = io.FileIO('test2.png', 'wb')
+#    downloader = MediaIoBaseDownload(fh, response)
+#    done = False
+#    while done is False:
+#        status, done = downloader.next_chunk()

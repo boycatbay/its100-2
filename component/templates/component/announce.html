@@ -4,11 +4,10 @@
   <div class="container">
     <div class="row"><h1 align="center">Announcements</h1></div>
     <div class="row">
-      {{courseId}}
         <div class="col s6 ">
             <div class="card deep-purple lighten-3">
-             
-                <span class="card-title">Recent Announcements</span>
+                <div class="card-content black-text">
+                <span class="card-title">Recent post from class: {{courseName}}</span>
             {% if anouncList %}   
             {% for announce in anouncList %}
             <div class="row">
@@ -80,12 +79,13 @@
           </div>
           {% endif %}
           </div>
+          </div>
         </div>
           <div class="col s6">
       
         <div class="card purple lighten-5">
           <div class="card-content black-text">
-            <span class="card-title">Create New Announcement</span>
+            <span class="card-title">New post to class: {{courseName}}</span>
         <div class="row">
           <div class="col s10 push-s1">
           <form method="post">

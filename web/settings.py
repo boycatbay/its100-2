@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "component.apps.componentConfig",
     "social_django",
+
 ]
 
 MIDDLEWARE = [
@@ -140,7 +141,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
     "593460008764-eg4u8k027qjoc345oq0c5sq80pqk1vkc.apps.googleusercontent.com"
 )
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "AfsMN8gdNcc9mBg5OxwBdDBm"
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/classroom.courses','https://www.googleapis.com/auth/classroom.announcements','https://www.googleapis.com/auth/classroom.coursework.students','https://www.googleapis.com/auth/classroom.rosters','https://www.googleapis.com/auth/classroom.profile.emails','https://www.googleapis.com/auth/classroom.profile.photos']
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/classroom.courses','https://www.googleapis.com/auth/drive.readonly','https://www.googleapis.com/auth/classroom.announcements','https://www.googleapis.com/auth/classroom.coursework.students','https://www.googleapis.com/auth/classroom.rosters','https://www.googleapis.com/auth/classroom.profile.emails','https://www.googleapis.com/auth/classroom.profile.photos']
 
 LOGIN_URL = "/auth/login/google-oauth2/"
 

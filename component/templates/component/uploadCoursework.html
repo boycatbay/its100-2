@@ -1,4 +1,5 @@
 {% load static %}
+{% load authextras %}
 {% include "component/header.html" %}
 <main>
     <div class="container">
@@ -6,33 +7,34 @@
         {% if request.user.is_authenticated and request.user|has_group:"Instructor" %} 
         <div class="card deep-purple lighten-5">
             <div class="card-content black-text">
-                <span class="card-title">Please fill in to upload</span>
+                <span class="card-title">Please fill in to upload {{title}}{{description}}{{maxscores}}{{easymaterial}}{{mediummaterial}}{{hardmaterial}}</span>
                             <form method="post">
+                                    {% csrf_token %}
                                     <div class="input-field col s6">
-                                        <input id="assignmentTitle" type="text" class="validate">
-                                        <label for="assignmentTitle">Assignment Title</label>
+                                        <input id="title" name="title" type="text" class="validate">
+                                        <label for="title">Assignment Title</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="assignmentDescription" type="text" class="validate">
+                                        <input id="assignmentDescription" name="description" type="text" class="validate">
                                         <label for="assignmentDescription">Assignment Description</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="maximumScores" type="number" class="validate">
+                                        <input id="maximumScores" name="maxscores" type="number" class="validate">
                                         <label for="maximumScores">Maximum Scores</label>
                                     </div>
                                 <div class="card  red lighten-5">
                                   <div class="card-content black-text">
                                     <span class="card-title">Please attach material links : </span>
                                     <div class="input-field col s6">
-                                        <input id="easyMaterial" type="text" class="validate">
+                                        <input id="easyMaterial" name="easymaterial"type="text" class="validate">
                                         <label for="easyMaterial">Easy Material</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="mediumMaterial" type="text" class="validate">
+                                        <input id="mediumMaterial" name="mediummaterial" type="text" class="validate">
                                         <label for="mediumMaterial">Medium Material</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="hardMaterial" type="text" class="validate">
+                                        <input id="hardMaterial" name="hardmaterial" type="text" class="validate">
                                         <label for="hardMaterial">Hard Material</label>
                                     </div>
                                   </div>
@@ -40,7 +42,9 @@
                             
                         
                                 
-                                <input type="submit" value="Submit">
+                                <button class="btn waves-effect waves-light" style="float: right;" type="submit" name="submit">Submit
+                                    <i class="material-icons right">send</i>
+                                  </button>
                                 </form>
                                 </div>
 
@@ -48,12 +52,14 @@
             {% else %} 
             <div class="card deep-purple lighten-5">
                 <div class="card-content black-text">
-                    <span class="card-title">Current Course:</span>{{courseId}}
+                    <span class="card-title">Current Course:{{data}}</span>{{courseId}}
+                    <div class="card red lighten-5">
                                 <form method="post">
-                                     <div class="card red lighten-5">
-                                        <button class="btn waves-effect waves-light" style="float: right;" type="submit" name="cours">Realease Assignment
-                                            <i class="material-icons right">Realease Assignment</i>
+                                        {% csrf_token %}
+                                        <button class="btn waves-effect waves-light" style="float: right;" type="submit" name="submit">Release Assignment
+                                            <i class="material-icons right">send</i>
                                           </button>
+                                          </form>
                                      </div>
                 </div>
             </div>
