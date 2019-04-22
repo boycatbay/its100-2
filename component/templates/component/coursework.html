@@ -11,9 +11,18 @@
             <span class="card-title">{{assignments.title}}</span>
             <p>Description: {{assignments.description}}</p>
             <div class="collection">
+                {% if assignments.materials %}
                 {% for material in assignments.materials %}
+                {% if material.driveFile %}
                 <a href='{{material.driveFile.driveFile.alternateLink}}' class="collection-item">{{material.driveFile.driveFile.title}}</a>
-                    {% endfor %}
+                {% elif material.youtubeVideo %}
+                <a href='{{material.youtubeVideo.alternateLink}}' class="collection-item">{{material.youtubeVideo.title}}</a>
+                {% elif material.link %}
+                <a href='{{material.link.url}}' class="collection-item">{{material.link.title}}</a>
+
+                {% endif %}
+                {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>

@@ -190,15 +190,8 @@ def uploadCourework(request):
                 query = "INSERT INTO component_assignment(title,description,score,materialeasy,materialmed,materialhard) VALUES (%s,%s,%s,%s,%s,%s) " 
                 cursor.execute(query,values)
                 transaction.commit()
-            
-            else:
-                title ='none'
-                description = 'none'
-                maxscores = 'none'
-                easymaterial = 'none'
-                mediummaterial = 'none'
-                hardmaterial = 'none'
-            return render(request, template ,{'title':title,'description':description,'maxscores':maxscores,'easymaterial':easymaterial,'mediummaterial':mediummaterial,'hardmaterial':hardmaterial})
+                redirect('/')
+            return render(request, template ,{})
         else:
             if 'submit' in request.POST:
                 query = "SELECT title,description,score,materialeasy,materialmed,materialhard FROM component_assignment ORDER BY id DESC LIMIT 1"
