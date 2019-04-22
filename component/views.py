@@ -11,6 +11,8 @@ from django import template
 from django.contrib.auth.models import Group 
 from django.contrib.auth.models import User
 from collections import namedtuple
+from django.views.generic import TemplateView
+
 
 def namedtuplefetchall(cursor):
     "Return all rows from a cursor as a namedtuple"
@@ -259,3 +261,5 @@ def logout(request):
 def error(request):
     template = 'component/error.html'
     return render(request,template,{})
+
+
