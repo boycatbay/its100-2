@@ -24,7 +24,7 @@ def assignmentRandom(assignment,number):
     #create empty list for store orderused
     storeUsed = []
     randomAsm =[]
-    for i in range(elementsInlist*2):
+    for i in range(0,elementsInlist*2):
         if len(storeUsed) >= number:
             break
         else:
@@ -74,7 +74,7 @@ def landing(request):
             request.session['courseName'] = cousreInfo[1]
 
         elif  'courseId' in request.session:
-            ans = request.session['courseId']
+            ans = request.session['courseId']+','+request.session['courseName']
                 
         elif 'courseId' not in request.session:
             ans = 'none'
@@ -176,6 +176,7 @@ def uploadCourework(request):
     if request.user.is_authenticated and 'courseId'  in request.session:
         template = 'component/uploadCoursework.html'
         courseId = request.session['courseId']
+        courseName =  request.session['courseName'] 
         cursor = connection.cursor()
         if has_group(request.user,'Instructor'):
             if 'submit' in request.POST:
@@ -219,9 +220,15 @@ def uploadCourework(request):
                 hardList = hard.split (",")
                 finalHard = assignmentRandom(hardList,2)
 
+                finalAssignment = finalEasy+finalMed+finalHard
+
+                createAssignmentwork(request,courseId,title,desc,score,finalAssignment)
+
+                Message = "Successful release assignment"
+
             else:
-                finalEasy = None
-            return render(request, template ,{'data':finalEasy})
+                Message = None
+            return render(request, template ,{'Message':Message,'courseName':courseName})
     
        
     else:

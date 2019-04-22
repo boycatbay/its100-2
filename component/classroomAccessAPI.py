@@ -1,5 +1,6 @@
 import requests
 import json
+import datetime
 #import io
 #from apiclient.http import MediaIoBaseDownload
 # Cousre
@@ -129,6 +130,7 @@ def getAssignmentwork(request,courseId,courseWorkId,submissionId):
 
 def createAssignmentwork(request,courseId,title,desc,maxPoint,links):
     social = request.user.social_auth.get(provider='google-oauth2')
+    now = datetime.datetime.now()
 
     assignment = {
         "title": title,
@@ -137,6 +139,15 @@ def createAssignmentwork(request,courseId,title,desc,maxPoint,links):
         "maxPoints": maxPoint,
         "assigneeMode": "ALL_STUDENTS",
         "workType": "ASSIGNMENT",
+        "dueDate": {
+            "day": now.day,
+            "month": now.month,
+            "year": now.year
+        },
+        "dueTime": {
+            "hours": now.hour+3 ,
+            "minutes": 0
+        },
         "state": "PUBLISHED",
         "submissionModificationMode": "MODIFIABLE",
     }
@@ -149,7 +160,8 @@ def createAssignmentwork(request,courseId,title,desc,maxPoint,links):
         'https://classroom.googleapis.com/v1/courses/'+courseId+'/courseWork',
         params={'access_token': social.extra_data['access_token']},data=json.dumps(assignment)
     )
-    
+    responsed = response.json()
+    return responsed
 #plagiarism
 
 # def plagiarism(request):
