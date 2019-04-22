@@ -108,7 +108,7 @@ def announce(request):
         # if a GET (or any other method) we'll create a blank form
         else:
             form = announces()
-        return render(request, template, {'form': form,'courseName':courseId ,'anouncList': anouncList})
+        return render(request, template, {'form': form,'courseName':courseName ,'anouncList': anouncList})
     else:
         return redirect('/')
 
