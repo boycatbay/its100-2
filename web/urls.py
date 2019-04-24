@@ -21,7 +21,7 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', include('component.urls')),
-    path('admin/', admin.site.urls),
+    path('maintenance/', admin.site.urls),
     path('', include('social_django.urls', namespace='social')),
     
 

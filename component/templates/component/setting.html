@@ -1,0 +1,78 @@
+{% load static %}
+{% include "component/header.html" %}
+<main>
+    <div class="container">
+        <div class="row"><h1 align="center">User Settings</h1></div>
+
+     
+            <div class="card deep-purple lighten-5">
+                <div class="card-content black-text">
+                        <span class="card-title">Assignment Ratio</span>
+                                <form method="post">
+                                        {% csrf_token %}
+                                        <div class="input-field col s12">
+                                            <input id="easy" name="easy" type="number" class="validate">
+                                            <label for="easy">Easy Materials</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                                <input id="med" name="med" type="number" class="validate">
+                                                <label for="med">Medium Materials</label>
+                                            </div> 
+                                        <div class="input-field col s12">
+                                                <input id="hard" name="hard" type="number" class="validate">
+                                                <label for="hard">Hard Materials</label>
+                                        </div>                           
+                                    <button class="btn waves-effect waves-light" style="float: right;" type="submit" name="submitAR">Submit
+                                        <i class="material-icons right">send</i>
+                                      </button>
+                                    </form>
+                                    </div>
+                                </div>               
+            
+                                <div class="row"></div>
+                <div class="card deep-purple lighten-5">
+                    <div class="card-content black-text">
+                            <span class="card-title">Sharing Calendar</span>
+                                    <form method="post">
+                                            {% csrf_token %}
+                                            <div class="input-field col s12">
+                                                <input id="email" name="email" type="email" class="validate">
+                                                <label for="email">E-Mail</label>
+                                            </div>                        
+                                        <button class="btn waves-effect waves-light" style="float: right;" type="submit" name="submitSC">Submit
+                                            <i class="material-icons right">send</i>
+                                          </button>
+                                        </form>
+                                        </div>
+                                    </div>               
+                                    <div class="row"></div>
+        <div class="card deep-purple lighten-5">
+            <div class="card-content black-text">
+                    <span class="card-title">New User</span>
+                            <form method="post">
+                                    {% csrf_token %}
+                                    <div class="input-field col s12">
+                                        <input id="email" name="email" type="email" class="validate">
+                                        <label for="email">E-mail</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                            <select name="role">
+                                              <option value="" disabled selected>Choose your option</option>
+                                              <option value="Instructor">Instructor</option>
+                                              <option value="TA">Teacher Assistant</option>
+                                            </select>
+                                          </div>                            
+                                <button class="btn waves-effect waves-light" style="float: right;" type="submit" name="submitNU">Submit
+                                    <i class="material-icons right">send</i>
+                                  </button>
+                                </form>
+                                </div>
+                            </div>               
+           
+        <div class="row"></div>
+    </div>
+  </main> 
+
+       
+
+{% include "component/footer.html" %}

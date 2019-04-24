@@ -62,6 +62,11 @@ def index(request):
 
 def landing(request):
     if request.user.is_authenticated :
+        cursor = connection.cursor()
+        query = "SELECT email FROM component_shardcal ORDER BY id DESC LIMIT 1"
+        cursor.execute(query)
+        data = namedtuplefetchall(cursor)
+        email = data[0].email
         template = 'component/landing.html'
         userProfile = getuserProfile(request)
         name = userProfile['name']['fullName']
@@ -74,22 +79,26 @@ def landing(request):
             cousreInfo = ans.split(',')
             request.session['courseId'] = cousreInfo[0]
             request.session['courseName'] = cousreInfo[1]
+            cID = request.session['courseId']  
+            ans = request.session['courseId']+','+request.session['courseName']
 
         elif  'courseId' in request.session:
+            cID = request.session['courseId']  
             ans = request.session['courseId']+','+request.session['courseName']
                 
-        elif 'courseId' not in request.session:
+        else:
             ans = 'none'
-            
+            cID = 'none'
+
         courseLists = getcousreList(request)    
-        return render(request, template, {'name':name,'pic':pic,'courseLists':courseLists,'ans':ans})
+        return render(request, template, {'name':name,'pic':pic,'courseLists':courseLists,'ans':ans,'cID':cID,'emails':email})
     else:
         return redirect('/')
 
 
 def announce(request):
     # if this is a POST request we need to process the form data
-    if request.user.is_authenticated and 'courseId'  in request.session:
+    if request.user.is_authenticated and 'courseId'  in request.session and has_group(request.user,'Instructor'):
         template = 'component/announce.html'
         courseId = request.session['courseId']
         courseName = request.session['courseName']
@@ -192,10 +201,17 @@ def uploadCourework(request):
                 query = "INSERT INTO component_assignment(title,description,score,materialeasy,materialmed,materialhard) VALUES (%s,%s,%s,%s,%s,%s) " 
                 cursor.execute(query,values)
                 transaction.commit()
-                redirect('/')
-            return render(request, template ,{})
+                return redirect('/')
+            
         else:
             if 'submit' in request.POST:
+                
+                query = "SELECT easy,med,hard FROM component_assignmentration ORDER BY id DESC LIMIT 1"
+                cursor.execute(query)
+                data = namedtuplefetchall(cursor)
+                easyRatio = data[0].easy
+                medRatio = data[0].med
+                hardRatio = data[0].hard
                 query = "SELECT title,description,score,materialeasy,materialmed,materialhard FROM component_assignment ORDER BY id DESC LIMIT 1"
                 cursor.execute(query)
                 data = namedtuplefetchall(cursor)
@@ -207,25 +223,89 @@ def uploadCourework(request):
                 hard = data[0].materialhard
 
                 easyList = easy.split (",")
-                finalEasy = assignmentRandom(easyList,2)
+                finalEasy = assignmentRandom(easyList,easyRatio)
 
                 medList = med.split (",")
-                finalMed = assignmentRandom(medList,2)
+                finalMed = assignmentRandom(medList,medRatio)
 
                 hardList = hard.split (",")
-                finalHard = assignmentRandom(hardList,2)
+                finalHard = assignmentRandom(hardList,hardRatio)
 
                 finalAssignment = finalEasy+finalMed+finalHard
 
                 createAssignmentwork(request,courseId,title,desc,score,finalAssignment)
 
                 Message = "Successful release assignment"
+                return redirect('/')
 
             else:
                 Message = None
             return render(request, template ,{'Message':Message,'courseName':courseName})
     
        
+    else:
+        return redirect('/')
+
+
+def settings(request):
+    if request.user.is_authenticated and 'courseId' in request.session and has_group(request.user,'Instructor'):
+        cursor = connection.cursor()
+        template = 'component/setting.html'
+        courseId = request.session['courseId']
+        if 'submitAR' in request.POST:
+            easy = request.POST.get('easy')
+            med = request.POST.get('med')
+            hard = request.POST.get('hard')
+            values = [easy,med,hard]
+            query = "INSERT INTO component_assignmentration(easy,med,hard) VALUES (%s,%s,%s) " 
+            cursor.execute(query,values)
+            transaction.commit()
+            return redirect('/')
+
+        elif 'submitSC' in request.POST:
+            email = request.POST.get('email')
+            values = [email]
+            query = "INSERT INTO component_shardcal(email) VALUES (%s) " 
+            cursor.execute(query,values)
+            transaction.commit()
+            return redirect('/')
+
+        elif 'submitNU' in request.POST:
+            email = request.POST.get('email')
+            role = request.POST.get('role')
+            usernames = email.split('@')[0]
+            value = [usernames,email,'password123','0','1','0',usernames,usernames]
+            query = "INSERT INTO auth_user(username,email,password,is_superuser,is_active,is_staff,first_name,last_name,date_joined ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,datetime('now')) " 
+            cursor.execute(query,value)
+            transaction.commit()
+
+            query = "SELECT id FROM auth_user WHERE email LIKE '"+email+"'"
+            cursor.execute(query)
+            data = namedtuplefetchall(cursor)
+            uId = data[0].id
+
+            query = "SELECT id FROM auth_group WHERE name LIKE '"+role+"'"  
+            cursor.execute(query)
+            data = namedtuplefetchall(cursor)
+            gId = data[0].id
+
+            value = [uId,gId]
+            query = "INSERT INTO auth_user_groups(user_id,group_id) VALUES (%s,%s) "  
+            cursor.execute(query,value)
+            transaction.commit()
+
+            value = ['google-oauth2',email,uId]
+            query = "INSERT INTO social_auth_usersocialauth(provider,uid,user_id,extra_data) VALUES (%s,%s,%s,'{}')"  
+            cursor.execute(query,value)
+            transaction.commit()
+
+            teachers(request,email,courseId)
+
+            return redirect('/')
+        else:
+            return render(request, template ,{})
+
+
     else:
         return redirect('/')
 

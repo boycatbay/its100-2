@@ -29,18 +29,25 @@
                 {% csrf_token %}
           <select class="browser-default" name="couser">
             {% if ans != 'none'%}
+
             {% for cousre in courseLists %} 
-            {% if cousre.id == ans  %}
+
+            {% if cousre.id == cID  %}
             <option selected="selected" value="{{cousre.id}},{{ cousre.name }}">{{ cousre.name }}</option>
             {% else %}
             <option value="{{cousre.id}},{{ cousre.name }}">{{ cousre.name }}</option>
             {% endif %}
+
             {% endfor %}
+
             {% else %}
+
             <option selected="selected" style="color:red" disabled>Please select course!!</option>
+
             {% for cousre in courseLists %} 
             <option value="{{cousre.id}},{{ cousre.name }}">{{ cousre.name }}</option>
             {% endfor %}
+
             {% endif %}
           </select>
         <br />

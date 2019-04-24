@@ -16,6 +16,33 @@ def getcousreList(request):
     return listCourse
 
 # UserProfile
+def invitation(request,email,courseId):
+    social = request.user.social_auth.get(provider='google-oauth2')
+    invite = {
+        "courseId": courseId,
+        "role": "TEACHER",
+        "userId": email
+    }
+    response = requests.post(
+        'https://classroom.googleapis.com/v1/invitations',
+        params={'access_token': social.extra_data['access_token']},data=json.dumps(invite)
+    )
+
+def teachers(request,email,courseId):
+    social = request.user.social_auth.get(provider='google-oauth2')
+    response = requests.get(
+        'https://classroom.googleapis.com/v1/courses/'+courseId+'/teachers/'+email,
+        params={'access_token': social.extra_data['access_token']}
+    )
+    userProfile = response.json()
+    if userProfile['error']:
+        invitation(request,email,courseId)
+        return True
+    else:
+        return False
+
+
+
 
 
 def getuserProfile(request):

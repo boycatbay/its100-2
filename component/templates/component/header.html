@@ -32,7 +32,7 @@
         nowIndicator: true,
         businessHours: true,
         events: {
-          googleCalendarId: '{{user.email}}'
+          googleCalendarId: '{{emails}}'
         },
         header: {
             left: 'prev,next today myCustomButton',
@@ -57,19 +57,22 @@
             <li><a href="/coursework">Courseworks</a></li>         
             <li><a href="/uploadcoursework">Upload Classwork</a></li> 
             <li class="divider"></li>
-            <li><a href="#!">Plagiarism</a></li>
+            <!--<li><a href="#!">Plagiarism</a></li>-->
           </ul>
         <nav>
             <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <div class="nav-wrapper purple darken-1">
               <a href="/" class="brand-logo">ITS100:Management</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
-                  <li><a href="/"><i class="material-icons">home</i></a></li>
+                  <li><a href="/"><i class="material-icons">home</i></a></li> 
                   {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}               
                 <li><a href="/announce">Announcements</a></li>
                 {% endif %}
                 <li><a href="/student">Student List</a></li>
                 <li><a class="dropdown-trigger" href="#!" data-target="courseWork">Coursework<i class="material-icons right">arrow_drop_down</i></a></li>
+                {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}   
+                <li><a href="/settings"><i class="material-icons">settings</i></a></li> 
+                {% endif %}
                 <li><a href="/logout">Sign out</a></li>
               </ul>
             </div>
@@ -83,7 +86,10 @@
               <li><a href="/uploadcoursework">Upload Classwork</a></li>
             <li><a href="/coursework">Courseworks</a></li>
             <li><a href="/student">Student List</a></li>
-            <li><a href="#!">Plagiarism</a></li>
+            {% if request.user.is_authenticated and request.user|has_group:"Instructor" %}   
+            <li><a href="/settings">Setting</a></li>
+            {% endif %}
+            <!--<li><a href="#!">Plagiarism</a></li>-->
             <li><a href="/logout" >Sign out</a></li>
           </ul>
       </header>
