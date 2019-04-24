@@ -150,6 +150,7 @@ def createAssignmentwork(request,courseId,title,desc,maxPoint,links):
         },
         "state": "PUBLISHED",
         "submissionModificationMode": "MODIFIABLE",
+        "associatedWithDeveloper": True,
     }
     if links :
         for link in links:
@@ -162,6 +163,21 @@ def createAssignmentwork(request,courseId,title,desc,maxPoint,links):
     )
     responsed = response.json()
     return responsed
+
+def evalution(request,courseId,courseWorkId,workId,points):
+    social = request.user.social_auth.get(provider='google-oauth2')
+
+    evalutions = {
+        "assignedGrade": points,
+    }
+    response = requests.patch(
+        'https://classroom.googleapis.com/v1/courses/'+courseId+'/courseWork/'+courseWorkId+'/studentSubmissions/'+workId,
+        params={'access_token': social.extra_data['access_token'],'updateMask':'assignedGrade'},data=json.dumps(evalutions)
+    )
+    responsed = response.json().get('studentSubmissions')
+    return responsed
+
+
 #plagiarism
 
 # def plagiarism(request):
