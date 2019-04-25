@@ -209,9 +209,9 @@ def uploadCourework(request):
                 query = "SELECT easy,med,hard FROM component_assignmentration ORDER BY id DESC LIMIT 1"
                 cursor.execute(query)
                 data = namedtuplefetchall(cursor)
-                easyRatio = data[0].easy
-                medRatio = data[0].med
-                hardRatio = data[0].hard
+                easyRatio = int(data[0].easy)
+                medRatio = int(data[0].med)
+                hardRatio = int(data[0].hard)
                 query = "SELECT title,description,score,materialeasy,materialmed,materialhard FROM component_assignment ORDER BY id DESC LIMIT 1"
                 cursor.execute(query)
                 data = namedtuplefetchall(cursor)
@@ -275,7 +275,7 @@ def settings(request):
             role = request.POST.get('role')
             usernames = email.split('@')[0]
             value = [usernames,email,'password123','0','1','0',usernames,usernames]
-            query = "INSERT INTO auth_user(username,email,password,is_superuser,is_active,is_staff,first_name,last_name,date_joined ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,datetime('now')) " 
+            query = "INSERT INTO auth_user(username,email,password,is_superuser,is_active,is_staff,first_name,last_name,date_joined ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,now()) " 
             cursor.execute(query,value)
             transaction.commit()
 
