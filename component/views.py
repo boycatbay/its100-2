@@ -202,7 +202,7 @@ def uploadCourework(request):
                 cursor.execute(query,values)
                 transaction.commit()
                 return redirect('/')
-            
+            return render(request, template ,{'courseName':courseName})   
         else:
             if 'submit' in request.POST:
                 
@@ -238,9 +238,9 @@ def uploadCourework(request):
                 Message = "Successful release assignment"
                 return redirect('/')
 
-            else:
-                Message = None
-            return render(request, template ,{'Message':Message,'courseName':courseName})
+            
+               
+            return render(request, template ,{'courseName':courseName})
     
        
     else:
