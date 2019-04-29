@@ -4,19 +4,19 @@
   <div class="container">
     <div class="row"><h1 align="center">Announcements</h1></div>
     <div class="row">
-        <div class="col s6 ">
+        <div class="col m6 s12">
             <div class="card deep-purple lighten-3">
                 <div class="card-content black-text">
                 <span class="card-title">Recent Announcements from Class: {{courseName}}</span>
             {% if anouncList %}   
             {% for announce in anouncList %}
             <div class="row">
-              <div class="col s10 push-s1 ">
+              <div class="col s12 m10 push-m1 ">
                 <div class="card purple lighten-5">
                   <div class="card-content black-text">
                     <span class="card-title">{{announce.text}}</span>
                     <div class="row">
-                        <div class="col s8 offset-s2">
+                        <div class="col s10 offset-s1 m8 offset-m2 ">
                             <!-- Teal page content  -->
                             {% if announce.materials  %}
                             {% for files in announce.materials %}
@@ -81,13 +81,13 @@
           </div>
           </div>
         </div>
-          <div class="col s6">
+          <div class="col s12 m6">
       
         <div class="card purple lighten-5">
           <div class="card-content black-text">
             <span class="card-title">New Announcement to Class: {{courseName}}</span>
             <div class="row">
-                <div class="col s10 push-s1">
+                <div class="col s12 m10 push-m1">
                     <form method="post">
                         {% csrf_token %}
                         {{ form }}

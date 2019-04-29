@@ -4,7 +4,7 @@
     <div class="row"></div>
     <div class="row">
 
-        <div class="col s5">
+        <div class="col s12 m6" >
 
 
             <div class="card purple darken-4">
@@ -12,9 +12,9 @@
                     <span class="card-title">
                         {% if 'https:' not in studentinfo.profile.photoUrl %}
 
-                        <img src="https:{{studentinfo.profile.photoUrl}}" alt="Smiley face" align="middle" height="150" width="150">
+                        <img src="https:{{studentinfo.profile.photoUrl}}" alt="Smiley face" align="middle" height="100" width="100">
                         {% else %}
-                        <img src="{{studentinfo.profile.photoUrl}}" alt="Smiley face" align="middle" height="150" width="150">
+                        <img src="{{studentinfo.profile.photoUrl}}" alt="Smiley face" align="middle" height="100" width="100">
                         {% endif %}
                     </span>
 
@@ -29,7 +29,7 @@
 
         </div>
 
-        <div class="col s7">
+        <div class="col s12 m6">
             <div class="card purple lighten-5">
                 <span class="card-title">Recent Assignments:</span>
                 <div class="row">
