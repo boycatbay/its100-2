@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "o*a_ipa9*tat)_yrwg8vafv=p1o&8ox^mt71qmnceels48yo0@"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0','localhost','192.168.11.13','its100.siit.tu.ac.th']
 
@@ -85,17 +85,22 @@ AUTHENTICATION_BACKENDS = (
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'ITS100',
+#        'USER': 'its100',
+#        'PASSWORD': 'its100connect',
+#        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+#        'PORT': '3306',
+#    }
+#}
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ITS100',
-        'USER': 'its100',
-        'PASSWORD': 'its100connect',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME" : "its100",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -140,6 +145,11 @@ SOCIAL_AUTH_PIPELINE = (
  )
 
 STATIC_URL = "/static/"
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "component/static"),
+]
+STATIC_ROOT =  os.path.join(BASE_DIR, "static")
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
     "593460008764-eg4u8k027qjoc345oq0c5sq80pqk1vkc.apps.googleusercontent.com"

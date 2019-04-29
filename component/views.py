@@ -14,6 +14,11 @@ from collections import namedtuple
 from django.views.generic import TemplateView
 
 
+
+
+
+
+
 def namedtuplefetchall(cursor):
     "Return all rows from a cursor as a namedtuple"
     desc = cursor.description
