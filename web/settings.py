@@ -149,7 +149,7 @@ SOCIAL_AUTH_PIPELINE = (
 
 
 STATIC_URL='/static/'
-STATIC_ROOT=os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT= '/home/its100/its100source/static/'
 MEDIA_URL='/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR, 'media/')
 
