@@ -27,5 +27,5 @@ urlpatterns = [
     path('', include('social_django.urls', namespace='social')),
     
 
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
