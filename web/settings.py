@@ -151,7 +151,7 @@ SOCIAL_AUTH_PIPELINE = (
 STATIC_URL='/static/'
 STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/'),
+    os.path.join(BASE_DIR, 'component/static/'),
 ]
 if not DEBUG: 
     STATIC_ROOT='/home/its100/its100source/static'
