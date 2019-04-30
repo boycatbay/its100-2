@@ -150,7 +150,7 @@ SOCIAL_AUTH_PIPELINE = (
 
 STATIC_URL='/static/'
 STATIC_ROOT=os.path.join(BASE_DIR, 'static/')
-
+STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
     "593460008764-eg4u8k027qjoc345oq0c5sq80pqk1vkc.apps.googleusercontent.com"
