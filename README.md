@@ -71,7 +71,7 @@ pip install mysqlclient
 
 ## Built With
 * [Django](https://www.djangoproject.com/) - The Python back-end web framework
-* [Materialize](https://www.materializecss.com/) - The CSS web fron-end web framework
+* [MaterializeCSS](https://www.materializecss.com/) - The CSS web fron-end web framework
 * [Google Classroom API](https://www.djangoproject.com/) - The Google Classroom API 
 
 
