@@ -153,8 +153,8 @@ STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'component/static/'),
 ]
-if not DEBUG: 
-    STATIC_ROOT='/home/its100/its100source/static'
+
+STATIC_ROOT=os.path.join(BASE_DIR, 'static/')
 
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
