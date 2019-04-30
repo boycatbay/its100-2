@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "o*a_ipa9*tat)_yrwg8vafv=p1o&8ox^mt71qmnceels48yo0@"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost','its100.siit.tu.ac.th','0.0.0.0','127.0.0.1']
+ALLOWED_HOSTS = ['its100.siit.tu.ac.th',]
 
 
 # Application definition
@@ -85,22 +85,22 @@ AUTHENTICATION_BACKENDS = (
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'ITS100',
-#        'USER': 'its100',
-#        'PASSWORD': 'its100connect',
-#        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-#        'PORT': '3306',
-#    }
-#}
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME" : "its100",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ITS100',
+        'USER': 'its100',
+        'PASSWORD': 'its100connect',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
+#DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.sqlite3",
+#        "NAME" : "its100",
+#    }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
